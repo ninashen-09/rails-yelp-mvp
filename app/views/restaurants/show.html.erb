@@ -1,0 +1,33 @@
+<div class="m-2">
+<%# display restaurant information %>
+  <h1><%=@restaurant.name%></h1>
+  <p class="text-primary"><strong>Restaurant Info</strong></p>
+  <strong>Address:</strong> <%=@restaurant.address%>
+  <br>
+  <strong>Phone number:</strong> <%=@restaurant.phone_number%>
+  <br>
+  <strong>Category:</strong> <%=@restaurant.category%>
+  <br>
+  <br>
+  <%# display review information %>
+  <p class="text-primary"><strong>Reviews</strong></p>
+  <ul class="list-group">
+    <% @restaurant.reviews.each do |review| %>
+      <li>
+      <strong>Comments:</strong><%= review.content %>
+      <%# to delete a review and go to the review_path link with a parameter review.id %>
+      <%=link_to "⛔︎delete this review", review_path(review),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+      <br>
+      <strong>Rating:</strong><%= review.rating %>
+      </li>
+    <% end %>
+  </ul>
+  <br>
+  <%# two buttons to add review and go back to homepage%>
+  <%=link_to "Create a review", new_restaurant_review_path(@restaurant), class: "btn btn-primary"%>
+  <br>
+  <br>
+  <br>
+  <%=link_to "Back to homepage", restaurants_path, class: "btn btn-info btn-outline-dark"%>
+</div>
